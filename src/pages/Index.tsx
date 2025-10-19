@@ -9,7 +9,7 @@ import Oleo from "@/components/sections/Oleo";
 import Contato from "@/components/sections/Contato";
 import { Button } from "@/components/ui/button";
 import { Waves } from "lucide-react";
-import heroOcean from "@/assets/hero-ocean.jpg";
+import heroOcean from "@/assets/bgMareSemPlastico.jpg";
 
 const Index = () => {
   const scrollToSection = (id: string) => {
@@ -37,7 +37,7 @@ const Index = () => {
         <div className="container mx-auto text-center relative z-10 pt-20">
           <div className="animate-fade-in-up">
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg">
-              Maré Sem Plástico 🌊
+              Maré Sem Plástico 
             </h1>
             <p className="text-2xl md:text-3xl text-white/95 mb-4 font-semibold drop-shadow-lg">
               Engajamos pessoas para promover a cultura oceânica

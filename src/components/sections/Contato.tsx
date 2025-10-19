@@ -99,7 +99,7 @@ const Contato = () => {
                 className="w-full gradient-ocean text-white font-bold rounded-full py-6 text-lg hover:scale-105 transition-bounce shadow-ocean"
               >
                 <Send className="mr-2" size={20} />
-                Enviar mensagem 🌊
+                Enviar mensagem 
               </Button>
             </form>
           </div>
@@ -151,7 +151,7 @@ const Contato = () => {
 
             <div className="bg-secondary/10 border-2 border-secondary rounded-3xl p-6">
               <p className="text-center text-lg font-semibold text-secondary">
-                🌊 Junte-se a nós na missão de proteger nossos oceanos!
+                 Junte-se a nós na missão de proteger nossos oceanos!
               </p>
             </div>
           </div>

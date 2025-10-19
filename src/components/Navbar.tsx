@@ -1,19 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png";
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -24,13 +15,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-soft"
-          : "bg-transparent"
-      }`}
-    >
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-soft">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -61,7 +46,7 @@ const Navbar = () => {
               onClick={() => scrollToSection("jogo")}
               className="gradient-coral text-white font-bold rounded-full px-6 hover:scale-105 transition-bounce shadow-ocean"
             >
-              🌈 Para Crianças
+              🎮 Para Crianças
             </Button>
           </div>
 
@@ -99,7 +84,7 @@ const Navbar = () => {
               onClick={() => scrollToSection("jogo")}
               className="gradient-coral text-white font-bold rounded-full px-6 shadow-ocean"
             >
-              🌈 Para Crianças
+              🎮 Para Crianças
             </Button>
           </div>
         )}

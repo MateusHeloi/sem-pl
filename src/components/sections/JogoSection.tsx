@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Gamepad2, Smartphone, Star } from "lucide-react";
-import characterSailor from "@/assets/character-sailor.png";
+import characterSailor from "@/assets/VideoPromocional.mp4";
 
 const JogoSection = () => {
   const scrollToSection = (id: string) => {
@@ -45,20 +45,19 @@ const JogoSection = () => {
               {/* Phone frame */}
               <div className="w-80 h-[600px] bg-gradient-to-br from-gray-800 to-gray-900 rounded-[3rem] p-3 shadow-ocean">
                 <div className="w-full h-full bg-primary rounded-[2.5rem] overflow-hidden relative">
-                  {/* Game preview */}
-                  <div className="absolute inset-0 gradient-ocean flex items-center justify-center">
-                    <img 
-                      src={characterSailor} 
-                      alt="Jogo Trilha Maré Sem Plástico"
-                      className="w-3/4 animate-bounce"
-                    />
-                  </div>
+               {/* Game preview */}
+<div className="absolute inset-0 gradient-ocean flex items-center justify-center">
+  <video 
+    src={characterSailor}
+    controls
+    autoPlay
+    muted
+    loop
+    className="w-3/4 h-3/4 object-contain rounded-lg"
+  />
+</div>
                   {/* Play icon overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                    <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center hover:scale-110 transition-bounce cursor-pointer">
-                      <div className="w-0 h-0 border-t-[15px] border-t-transparent border-l-[25px] border-l-primary border-b-[15px] border-b-transparent ml-1"></div>
-                    </div>
-                  </div>
+                  
                 </div>
               </div>
               {/* Phone notch */}
