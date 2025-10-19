@@ -6,6 +6,8 @@ import OProblema from "@/components/sections/OProblema";
 import JogoSection from "@/components/sections/JogoSection";
 import Manguezal from "@/components/sections/Manguezal";
 import Oleo from "@/components/sections/Oleo";
+import TabuleiroGame from "@/components/sections/TabuleiroGame";
+import TabuleiroFisico from "@/components/sections/TabuleiroFisico";
 import Contato from "@/components/sections/Contato";
 import { Button } from "@/components/ui/button";
 import { Waves } from "lucide-react";
@@ -82,6 +84,8 @@ const Index = () => {
       <JogoSection />
       <Manguezal />
       <Oleo />
+          <TabuleiroGame />
+          <TabuleiroFisico />
       <Contato />
      
       

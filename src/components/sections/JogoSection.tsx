@@ -114,7 +114,7 @@ const JogoSection = () => {
               size="lg"
               className="gradient-coral text-white font-bold rounded-full px-8 py-6 text-lg hover:scale-105 transition-bounce shadow-ocean"
             >
-              🎮 Conheça os Minigames
+               Conheça os Minigames
             </Button>
           </div>
         </div>
