@@ -34,7 +34,7 @@ const JogoSection = () => {
           </h2>
           <div className="w-24 h-1 gradient-ocean mx-auto rounded-full mb-6"></div>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Um jogo educativo para crianças de 8 a 12 anos que ensina sobre o cuidado com os oceanos e a redução da poluição plástica
+            Um jogo educativo para crianças de 6 a 10 anos que ensina sobre o cuidado com os oceanos e a redução da poluição plástica
           </p>
         </div>
 

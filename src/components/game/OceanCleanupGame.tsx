@@ -3,6 +3,9 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Trophy, RotateCcw, Play } from "lucide-react";
 import characterLiu from "@/assets/character-liu.jpg";
+import garrafaPng from "@/assets/garrafa.png";
+import sacolaPng from "@/assets/sacola.png";
+import lataPng from "@/assets/lata.png";
 
 interface Trash {
   id: number;
@@ -14,7 +17,7 @@ interface Trash {
 }
 
 const OceanCleanupGame = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [gameState, setGameState] = useState<'idle' | 'playing' | 'ended'>('idle');
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(60);
@@ -22,32 +25,86 @@ const OceanCleanupGame = () => {
     const saved = localStorage.getItem('oceanCleanupHighScore');
     return saved ? parseInt(saved) : 0;
   });
-  
+
   const playerRef = useRef({ x: 200, y: 300, width: 60, height: 80 });
   const trashRef = useRef<Trash[]>([]);
-  const keysPressed = useRef<{ [key: string]: boolean }>({});
-  const gameLoopRef = useRef<number>();
-  const timerRef = useRef<NodeJS.Timeout>();
-  const playerImageRef = useRef<HTMLImageElement>();
+  const keysPressed = useRef<Record<string, boolean>>({});
+  const gameLoopRef = useRef<number | undefined>(undefined);
+  const timerRef = useRef<number | undefined>(undefined);
+  const playerImageRef = useRef<HTMLImageElement | undefined>(undefined);
 
+  // referências para imagens de lixo
+  const trashImagesRef = useRef<Record<string, HTMLImageElement | undefined>>({});
+
+  // trashTypes usa 'type' (lógica do jogo) e 'key' (nome da imagem em trashImagesRef)
   const trashTypes = [
-    { emoji: '🍾', type: 'bottle' as const, points: 10 },
-    { emoji: '🛍️', type: 'bag' as const, points: 15 },
-    { emoji: '🥫', type: 'can' as const, points: 20 }
+    { emoji: '🍾', type: 'bottle' as const, points: 10, key: 'garrafa' },
+    { emoji: '🛍️', type: 'bag' as const, points: 15, key: 'sacola' },
+    { emoji: '🥫', type: 'can' as const, points: 20, key: 'lata' }
   ];
 
+  // Load images (player + trash PNGs)
   useEffect(() => {
-    // Load player image
     const img = new Image();
     img.src = characterLiu;
     playerImageRef.current = img;
+
+    const garrafaImg = new Image();
+    garrafaImg.src = garrafaPng;
+    const sacolaImg = new Image();
+    sacolaImg.src = sacolaPng;
+    const lataImg = new Image();
+    lataImg.src = lataPng;
+
+    trashImagesRef.current = {
+      garrafa: garrafaImg,
+      sacola: sacolaImg,
+      lata: lataImg
+    };
   }, []);
 
+  // Responsivo: ajusta tamanho do canvas ao container e aplica devicePixelRatio
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const resize = () => {
+      const parent = canvas.parentElement;
+      const cssWidth = parent ? parent.clientWidth : 800;
+      const cssHeight = Math.round(cssWidth * 5 / 8); // manter aspectRatio 8/5
+      const dpr = window.devicePixelRatio || 1;
+
+      canvas.style.width = `${cssWidth}px`;
+      canvas.style.height = `${cssHeight}px`;
+
+      // definir resolução real do canvas
+      canvas.width = Math.round(cssWidth * dpr);
+      canvas.height = Math.round(cssHeight * dpr);
+
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        // normaliza o contexto para que desenhos usem coordenadas CSS (não pixels físicos)
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+    };
+
+    resize();
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, []);
+
+  // helper para touch / mouse que seta as "setas" virtuais
+  const setTouchKey = (key: string, down: boolean) => {
+    keysPressed.current[key] = down;
+  };
+
   const spawnTrash = () => {
+    const canvas = canvasRef.current;
+    const spawnWidth = canvas ? Math.max(0, canvas.width / (window.devicePixelRatio || 1) - 48) : 700;
     const type = trashTypes[Math.floor(Math.random() * trashTypes.length)];
     const trash: Trash = {
       id: Date.now() + Math.random(),
-      x: Math.random() * 700,
+      x: Math.random() * spawnWidth,
       y: -50,
       type: type.type,
       collected: false,
@@ -64,7 +121,10 @@ const OceanCleanupGame = () => {
     playerRef.current = { x: 200, y: 300, width: 60, height: 80 };
 
     // Start timer
-    timerRef.current = setInterval(() => {
+    if (timerRef.current) {
+      window.clearInterval(timerRef.current);
+    }
+    timerRef.current = window.setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
           endGame();
@@ -82,9 +142,11 @@ const OceanCleanupGame = () => {
     setGameState('ended');
     if (gameLoopRef.current) {
       cancelAnimationFrame(gameLoopRef.current);
+      gameLoopRef.current = undefined;
     }
     if (timerRef.current) {
-      clearInterval(timerRef.current);
+      window.clearInterval(timerRef.current);
+      timerRef.current = undefined;
     }
   };
 
@@ -96,19 +158,21 @@ const OceanCleanupGame = () => {
     if (!ctx) return;
 
     // Clear canvas with ocean gradient
-    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    const canvasHeight = canvas.height / (window.devicePixelRatio || 1);
+    const canvasWidth = canvas.width / (window.devicePixelRatio || 1);
+    const gradient = ctx.createLinearGradient(0, 0, 0, canvasHeight);
     gradient.addColorStop(0, '#0077be');
     gradient.addColorStop(1, '#004d7a');
     ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
     // Update player position
     const player = playerRef.current;
     const speed = 5;
     if (keysPressed.current['ArrowLeft'] && player.x > 0) player.x -= speed;
-    if (keysPressed.current['ArrowRight'] && player.x < canvas.width - player.width) player.x += speed;
+    if (keysPressed.current['ArrowRight'] && player.x < canvasWidth - player.width) player.x += speed;
     if (keysPressed.current['ArrowUp'] && player.y > 0) player.y -= speed;
-    if (keysPressed.current['ArrowDown'] && player.y < canvas.height - player.height) player.y += speed;
+    if (keysPressed.current['ArrowDown'] && player.y < canvasHeight - player.height) player.y += speed;
 
     // Draw player (Sereia Liu)
     if (playerImageRef.current && playerImageRef.current.complete) {
@@ -120,7 +184,6 @@ const OceanCleanupGame = () => {
       ctx.drawImage(playerImageRef.current, player.x, player.y, player.width, player.height);
       ctx.restore();
     } else {
-      // Fallback mermaid emoji
       ctx.font = '48px Arial';
       ctx.fillText('🧜‍♀️', player.x, player.y + 40);
     }
@@ -131,6 +194,7 @@ const OceanCleanupGame = () => {
     }
 
     // Update and draw trash
+    const trashSize = 40;
     trashRef.current = trashRef.current.filter(trash => {
       if (trash.collected) return false;
 
@@ -139,9 +203,9 @@ const OceanCleanupGame = () => {
       // Check collision with player
       if (
         trash.x < player.x + player.width &&
-        trash.x + 40 > player.x &&
+        trash.x + trashSize > player.x &&
         trash.y < player.y + player.height &&
-        trash.y + 40 > player.y
+        trash.y + trashSize > player.y
       ) {
         const trashType = trashTypes.find(t => t.type === trash.type);
         setScore(prev => prev + (trashType?.points || 10));
@@ -149,12 +213,19 @@ const OceanCleanupGame = () => {
       }
 
       // Remove if off screen
-      if (trash.y > canvas.height) return false;
+      if (trash.y > canvasHeight) return false;
 
-      // Draw trash
-      ctx.font = '32px Arial';
-      const emoji = trashTypes.find(t => t.type === trash.type)?.emoji || '🗑️';
-      ctx.fillText(emoji, trash.x, trash.y);
+      // Desenhar lixo: tenta PNG primeiro, senão fallback para emoji
+      const typeKey = trashTypes.find(t => t.type === trash.type)?.key;
+      const img = typeKey ? trashImagesRef.current[typeKey] : undefined;
+
+      if (img && img.complete) {
+        ctx.drawImage(img, trash.x, trash.y, trashSize, trashSize);
+      } else {
+        ctx.font = '32px Arial';
+        const emoji = trashTypes.find(t => t.type === trash.type)?.emoji || '🗑️';
+        ctx.fillText(emoji, trash.x, trash.y + trashSize - 8);
+      }
 
       return true;
     });
@@ -181,7 +252,7 @@ const OceanCleanupGame = () => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
       if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current);
-      if (timerRef.current) clearInterval(timerRef.current);
+      if (timerRef.current) window.clearInterval(timerRef.current);
     };
   }, []);
 
@@ -195,7 +266,7 @@ const OceanCleanupGame = () => {
   useEffect(() => {
     if (gameState === 'ended') {
       if (gameLoopRef.current) cancelAnimationFrame(gameLoopRef.current);
-      if (timerRef.current) clearInterval(timerRef.current);
+      if (timerRef.current) window.clearInterval(timerRef.current);
     }
   }, [gameState]);
 
@@ -210,7 +281,7 @@ const OceanCleanupGame = () => {
           <p className="text-center text-muted-foreground mb-6">
             Ajude a Sereia Liu a coletar plásticos e lixos no oceano!
           </p>
-          
+
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4 mb-6">
             <Card className="p-4 bg-primary/10 border-primary/20">
@@ -244,7 +315,51 @@ const OceanCleanupGame = () => {
             className="w-full border-4 border-primary rounded-xl shadow-lg"
             style={{ maxWidth: '100%', height: 'auto', aspectRatio: '8/5' }}
           />
-          
+
+          {/* Controles táteis (aparecem em telas pequenas) */}
+          <div className="absolute inset-x-0 bottom-4 flex justify-center gap-3 md:hidden pointer-events-auto">
+            <button
+              onTouchStart={() => setTouchKey('ArrowLeft', true)}
+              onTouchEnd={() => setTouchKey('ArrowLeft', false)}
+              onMouseDown={() => setTouchKey('ArrowLeft', true)}
+              onMouseUp={() => setTouchKey('ArrowLeft', false)}
+              className="bg-white/90 text-black rounded-full w-12 h-12 flex items-center justify-center shadow"
+              aria-label="esquerda"
+            >
+              ◀
+            </button>
+            <button
+              onTouchStart={() => setTouchKey('ArrowUp', true)}
+              onTouchEnd={() => setTouchKey('ArrowUp', false)}
+              onMouseDown={() => setTouchKey('ArrowUp', true)}
+              onMouseUp={() => setTouchKey('ArrowUp', false)}
+              className="bg-white/90 text-black rounded-full w-12 h-12 flex items-center justify-center shadow"
+              aria-label="cima"
+            >
+              ▲
+            </button>
+            <button
+              onTouchStart={() => setTouchKey('ArrowDown', true)}
+              onTouchEnd={() => setTouchKey('ArrowDown', false)}
+              onMouseDown={() => setTouchKey('ArrowDown', true)}
+              onMouseUp={() => setTouchKey('ArrowDown', false)}
+              className="bg-white/90 text-black rounded-full w-12 h-12 flex items-center justify-center shadow"
+              aria-label="baixo"
+            >
+              ▼
+            </button>
+            <button
+              onTouchStart={() => setTouchKey('ArrowRight', true)}
+              onTouchEnd={() => setTouchKey('ArrowRight', false)}
+              onMouseDown={() => setTouchKey('ArrowRight', true)}
+              onMouseUp={() => setTouchKey('ArrowRight', false)}
+              className="bg-white/90 text-black rounded-full w-12 h-12 flex items-center justify-center shadow"
+              aria-label="direita"
+            >
+              ▶
+            </button>
+          </div>
+
           {/* Overlay for idle/ended states */}
           {(gameState === 'idle' || gameState === 'ended') && (
             <div className="absolute inset-0 bg-black/70 rounded-xl flex items-center justify-center">

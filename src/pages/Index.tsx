@@ -5,6 +5,7 @@ import QuemSomos from "@/components/sections/QuemSomos";
 import OProblema from "@/components/sections/OProblema";
 import JogoSection from "@/components/sections/JogoSection";
 import Manguezal from "@/components/sections/Manguezal";
+import Oleo from "@/components/sections/Oleo";
 import Contato from "@/components/sections/Contato";
 import { Button } from "@/components/ui/button";
 import { Waves } from "lucide-react";
@@ -79,7 +80,9 @@ const Index = () => {
       <OProblema />
       <JogoSection />
       <Manguezal />
+      <Oleo />
       <Contato />
+     
       
       <Footer />
     </div>
