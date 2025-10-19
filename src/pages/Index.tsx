@@ -64,7 +64,7 @@ const Index = () => {
                 size="lg"
                 className="gradient-coral text-white font-bold rounded-full px-10 py-7 text-xl hover:scale-105 transition-bounce shadow-ocean"
               >
-                🎮 Jogue Agora
+                 Jogue Agora
               </Button>
             </div>
           </div>

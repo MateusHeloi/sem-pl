@@ -409,7 +409,7 @@ const OceanCleanupGame = () => {
         {/* Controls Info */}
         <div className="bg-muted rounded-lg p-4">
           <p className="text-center text-sm text-muted-foreground">
-            💡 <strong>Dica:</strong> Planeje seus movimentos para coletar mais lixo e aumentar sua pontuação!
+             <strong>Dica:</strong> Planeje seus movimentos para coletar mais lixo e aumentar sua pontuação!
           </p>
         </div>
       </Card>
@@ -417,7 +417,7 @@ const OceanCleanupGame = () => {
       {/* Ranking Section */}
       <Card className="mt-6 p-6 bg-gradient-to-br from-accent/5 to-accent/10 border-accent/20">
         <h4 className="text-2xl font-bold text-center text-foreground mb-4">
-          🏆 Ranking Local
+           Ranking Local
         </h4>
         <div className="text-center">
           <div className="inline-block bg-white rounded-lg p-6 shadow-lg">

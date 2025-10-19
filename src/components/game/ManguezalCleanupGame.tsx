@@ -289,7 +289,7 @@ const ManguezalCleanupGame = () => {
         {/* Header */}
         <div className="mb-8">
           <h3 className="text-4xl font-bold text-center text-cyan-700 mb-4">
-            🌿 Limpeza do Mangue 🌿
+             Limpeza do Mangue 
           </h3>
           <p className="text-center text-cyan-600 mb-8 text-lg">
             Clique no óleo para limpá-lo e salvar o mangue com a ajuda da Sereia Lú e Tartaruguitá!
@@ -388,7 +388,7 @@ const ManguezalCleanupGame = () => {
       {/* Ranking Section */}
       <Card className="mt-8 p-8 bg-gradient-to-br from-purple-100 via-pink-100 to-orange-100 border-2 border-purple-200 shadow-xl">
         <h4 className="text-3xl font-bold text-center text-purple-800 mb-8">
-          🏆 Ranking Local
+          Ranking Local
         </h4>
         <div className="text-center">
           <div className="inline-block bg-gradient-to-br from-yellow-300 to-yellow-400 rounded-2xl p-8 shadow-2xl border-4 border-yellow-500">
@@ -398,7 +398,7 @@ const ManguezalCleanupGame = () => {
           </div>
         </div>
         <p className="text-center text-lg text-purple-700 mt-6 font-semibold">
-          Continue jogando para melhorar seu recorde! 🚀
+          Continue jogando para melhorar seu recorde! 
         </p>
       </Card>
     </div>
