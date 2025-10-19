@@ -19,7 +19,7 @@ const Contato = () => {
     // Basic validation
     if (!formData.name || !formData.email || !formData.message) {
       toast({
-        title: "Ops! 🌊",
+        title: "Ops!",
         description: "Por favor, preencha todos os campos.",
         variant: "destructive"
       });
@@ -27,7 +27,7 @@ const Contato = () => {
     }
 
     toast({
-      title: "Mensagem enviada! 🎉",
+      title: "Mensagem enviada! ",
       description: "Obrigado por entrar em contato. Responderemos em breve!",
     });
 
@@ -40,7 +40,7 @@ const Contato = () => {
       <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-12 animate-fade-in-up">
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
-            Entre em Contato 💌
+            Entre em Contato 
           </h2>
           <div className="w-24 h-1 gradient-ocean mx-auto rounded-full mb-4"></div>
           <p className="text-xl text-muted-foreground">

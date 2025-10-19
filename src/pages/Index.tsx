@@ -40,10 +40,11 @@ const Index = () => {
               Maré Sem Plástico 🌊
             </h1>
             <p className="text-2xl md:text-3xl text-white/95 mb-4 font-semibold drop-shadow-lg">
-              Protegendo nossos oceanos, um passo de cada vez
+              Engajamos pessoas para promover a cultura oceânica
             </p>
             <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto drop-shadow-lg">
-              Junte-se a nós na missão de reduzir a poluição plástica e educar as próximas gerações sobre a importância da conservação marinha
+              Acreditamos que o conhecimento é a maré que transforma atitudes. 
+
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

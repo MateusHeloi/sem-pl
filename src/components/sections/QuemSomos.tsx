@@ -21,7 +21,7 @@ const QuemSomos = () => {
           </h2>
           <div className="w-24 h-1 gradient-ocean mx-auto rounded-full mb-6"></div>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Organização dedicada à conservação marinha e educação ambiental
+            Cuidamos dos oceanos, engajando todos que vivem, trabalham ou se divertem no mar.
           </p>
         </div>
 
@@ -31,10 +31,11 @@ const QuemSomos = () => {
               Transformando a Educação Ambiental
             </h3>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              A Maré Sem Plástico é uma organização não governamental que atua na linha de frente da conservação dos oceanos, combinando ciência, educação e tecnologia para criar um impacto duradouro na proteção da vida marinha.
+             Na Maré Sem Plástico, acreditamos que cuidar do oceano começa pela experiência e conexão com o mar. Unimos ciência, educação e tecnologia para inspirar crianças e adultos a se envolverem na cultura oceânica.
+Promovemos mutirões em mares e praias, envolvendo todos que vivem, trabalham ou desfrutam do mar, e criamos experiências educativas, como o jogo “Trilha Maré Sem Plástico”. Voltado para crianças de 6 a 10 anos, ele aproxima os pequenos dos ecossistemas marinhos, da sustentabilidade e de práticas conscientes. Aqui, aprender é descobrir, brincar e agir pelo oceano.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Desenvolvemos soluções inovadoras de educação ambiental, incluindo o jogo "Trilha Maré Sem Plástico", uma plataforma interativa que engaja jovens de 8 a 12 anos no aprendizado sobre ecossistemas marinhos e sustentabilidade.
+              Desenvolvemos soluções inovadoras de educação ambiental, incluindo o jogo "Trilha Maré Sem Plástico", uma plataforma interativa que engaja jovens de 6 a 10 anos no aprendizado sobre ecossistemas marinhos e sustentabilidade.
             </p>
             <div className="flex gap-8 pt-4">
               <div className="text-center">
@@ -105,27 +106,28 @@ const QuemSomos = () => {
               <div className="mb-4 p-4 bg-primary rounded-full">
                 <BookOpen className="text-white" size={32} />
               </div>
-              <h4 className="text-xl font-bold text-foreground mb-3">Educação</h4>
+              <h4 className="text-xl font-bold text-foreground mb-3">Educação </h4>
               <p className="text-muted-foreground">
-                Programas educativos em escolas, desenvolvimento de jogos interativos e materiais didáticos sobre conservação marinha.
+                 Jogos, atividades e materiais que conectam crianças e jovens ao cuidado com os oceanos.
               </p>
             </div>
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 p-4 bg-secondary rounded-full">
                 <TrendingUp className="text-white" size={32} />
               </div>
-              <h4 className="text-xl font-bold text-foreground mb-3">Ação Direta</h4>
+              <h4 className="text-xl font-bold text-foreground mb-3">Ação no Mar e na Praia</h4>
               <p className="text-muted-foreground">
-                Limpezas costeiras, monitoramento de ecossistemas e campanhas de redução do uso de plástico descartável.
+                Limpezas, monitoramento e campanhas para reduzir o plástico descartável.
+
               </p>
             </div>
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 p-4 bg-accent rounded-full">
                 <Award className="text-white" size={32} />
               </div>
-              <h4 className="text-xl font-bold text-foreground mb-3">Advocacy</h4>
+              <h4 className="text-xl font-bold text-foreground mb-3">Engajamento </h4>
               <p className="text-muted-foreground">
-                Mobilização comunitária, parcerias institucionais e disseminação de boas práticas ambientais.
+               Mobilizamos comunidades e espalhamos boas práticas para que todos cuidem do mar.
               </p>
             </div>
           </div>
