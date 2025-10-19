@@ -8,26 +8,26 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Ocean-inspired palette */
-    --background: 200 30% 98%;
-    --foreground: 200 40% 15%;
+    /* Professional ocean palette */
+    --background: 210 20% 98%;
+    --foreground: 210 30% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 200 40% 15%;
+    --card-foreground: 210 30% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 200 40% 15%;
+    --popover-foreground: 210 30% 12%;
 
-    /* Ocean blue - primary */
-    --primary: 199 84% 45%;
+    /* Deep ocean blue - primary */
+    --primary: 205 90% 40%;
     --primary-foreground: 0 0% 100%;
     
-    /* Aqua green - secondary */
-    --secondary: 177 70% 55%;
+    /* Teal - secondary */
+    --secondary: 195 75% 35%;
     --secondary-foreground: 0 0% 100%;
 
-    /* Coral - accent */
-    --accent: 16 90% 65%;
+    /* Ocean accent */
+    --accent: 200 85% 45%;
     --accent-foreground: 0 0% 100%;
     
     /* Soft teal */
